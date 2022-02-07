@@ -1,0 +1,1 @@
+web: ./build/install/ktor-docker/bin/ktor-docker
