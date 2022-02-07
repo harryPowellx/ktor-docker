@@ -36,3 +36,5 @@ tasks{
         }
     }
 }
+
+task("stage").dependsOn("installDist")
