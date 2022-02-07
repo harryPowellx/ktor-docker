@@ -1,6 +1,17 @@
 FROM openjdk:8-jdk
-EXPOSE 8080:8080
-RUN mkdir /app
-COPY ./build/install/docker/ /app/
-WORKDIR /app/bin
-CMD ["./docker"]
+
+WORKDIR /src
+COPY . /src
+
+RUN apt-get update
+RUN apt-get install -y dos2unix
+RUN dos2unix gradlew
+
+RUN bash gradlew shadowJar
+
+WORKDIR /run
+RUN cp /src/build/libs/*.jar /run/server.jar
+
+EXPOSE 8080
+
+CMD java -jar /run/server.jar
